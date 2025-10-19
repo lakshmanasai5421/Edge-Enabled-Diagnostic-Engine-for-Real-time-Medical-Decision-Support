@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Edge-Enabled Diagnostic Engine</title>
+<link rel="stylesheet" type="text/css" href="../static/style.css"/>
+
+<style>
+/* General form styling */
+select, input[type="file"], button {
+  width: 220px;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  display: block;
+}
+
+button {
+  width: auto;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+h3, h2 {
+  margin-top: 10px;
+}
+
+/* Container styling */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Table styling */
+.table-container {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #fff;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table th, table td {
+  border: 1px solid #333;
+  padding: 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+/* Prediction results styling */
+#results {
+  max-height: 350px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.row-data {
+  margin-bottom: 10px;
+}
+
+.row-data pre {
+  background-color: #f4f4f4;
+  padding: 5px;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.row-data p {
+  font-weight: bold;
+  margin-top: 5px;
+  color: #333;
+}
+</style>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <h3 style="color:white;">
+      Edge-Enabled Diagnostic Engine for Real-time Medical Decision Support
+    </h3>
+  </div>
+
+  <div id="menu">
+    <ul>
+      <li><a href="/selectdata">Encrypt using LPME</a></li>
+      <li><a href="/TrainML">Train ML Models</a></li>
+      <li><a href="/selecttest">Predict Data</a></li>
+      <li><a href="/">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <!-- Encryption Form -->
+    {% if select|default(False) %}
+    <form method="post" action="/Encrypt" enctype="multipart/form-data">
+        <h3>Encrypt Dataset</h3>
+        <label>Choose Dataset:</label>
+        <select name="id" required>
+            <option value="heart">Heart Dataset</option>
+            <option value="hypothyroid">Hypothyroid Dataset</option>
+        </select>
+        <button type="submit">Encrypt</button>
+    </form>
+    {% endif %}
+
+    <!-- Display Encryption Table -->
+    {% if error|default(False) %}
+    <div class="table-container">
+        {{ error|safe }}
+    </div>
+    {% endif %}
+
+    <!-- Prediction Form -->
+    {% if Predictselection|default(False) %}
+    <form method="post" action="/Predict" enctype="multipart/form-data" style="margin-top:20px;">
+        <h3>Upload Test Data for Prediction</h3>
+        <label>Choose Dataset:</label>
+        <select name="id" required>
+            <option value="heart">Heart Dataset</option>
+            <option value="hypothyroid">Hypothyroid Dataset</option>
+        </select>
+        <label for="file">Upload CSV:</label>
+        <input type="file" name="file" accept=".csv" required>
+        <button type="submit">Predict</button>
+    </form>
+    {% endif %}
+
+    <!-- Prediction Results -->
+    {% if data|default(False) %}
+    <div id="results">
+        <h2>Prediction Results</h2>
+        {% for item in data %}
+            <div class="row-data">
+                <pre>{{ item.row }}</pre>
+                <p>{{ item.message }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<title>Edge-Enabled Diagnostic Engine for Real-time Medical Decision Support</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../static/style.css"/>
+<script language="javascript">
+	function checkFields(f1)
+	{
+		if(f1.t1.value.length==0)
+		{
+			alert("Please Enter username");
+			f1.t1.focus();
+			return false;
+		}
+		if(f1.t2.value.length==0)
+		{
+			alert("Please Enter password");
+			f1.t2.focus();
+			return false;
+		}
+		return true;
+	}
+</script>
+</head>
+<body>
+<div id="wrapper">
+	<div id="header">
+		<div id="logo">
+			<h3><font size="5" color="white">Edge-Enabled Diagnostic Engine for Real-time Medical Decision Support</font></h3>
+		</div>
+		<div id="slogan"></div>
+	</div>
+
+	<div id="menu">
+		<ul>
+			<li class="active"><a href="/">Home</a></li>
+			<li><a href="Login">User Login</a></li>
+			<li><a href="Signup">New User Signup</a></li>			
+		</ul>
+		<br class="clearfix" />
+	</div>
+	
+	<center>
+		<!-- Add image above the login form -->
+		<img src="https://pub.mdpi-res.com/sensors/sensors-24-07965/article_deploy/html/images/sensors-24-07965-g001-550.jpg?1734079930" 
+		     alt="Edge Diagnostic Illustration" width="550" style="margin-bottom:20px; border:1px solid #ccc; border-radius:8px;"/>
+
+		<form name="f1" action="/UserLogin" method="post" OnSubmit="return checkFields(this);">
+			<br/>
+			<h2><b>User Login Screen</b></h2>
+			<font size="" color="red"><center>{{ error }}</center></font>
+						
+			<table align="center" width="40">
+				<tr>
+					<td><font size="" color="black">Username</font></td>
+					<td><input type="text" name="t1" style="font-family: Comic Sans MS" size="30"/></td>
+				</tr>
+				<tr>
+					<td><font size="" color="black">Password</font></td>
+					<td><input type="password" name="t2" style="font-family: Comic Sans MS" size="30"/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="Login"></td>
+				</tr>
+			</table>
+		</form>
+	</center>
+</div>
+</body>
+</html>
